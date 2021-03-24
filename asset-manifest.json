@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/Journal-react-app-login/static/css/main.9169da59.chunk.css",
+    "main.js": "/Journal-react-app-login/static/js/main.44fe2a13.chunk.js",
+    "main.js.map": "/Journal-react-app-login/static/js/main.44fe2a13.chunk.js.map",
+    "runtime-main.js": "/Journal-react-app-login/static/js/runtime-main.d368b2a2.js",
+    "runtime-main.js.map": "/Journal-react-app-login/static/js/runtime-main.d368b2a2.js.map",
+    "static/js/2.f05560b1.chunk.js": "/Journal-react-app-login/static/js/2.f05560b1.chunk.js",
+    "static/js/2.f05560b1.chunk.js.map": "/Journal-react-app-login/static/js/2.f05560b1.chunk.js.map",
+    "index.html": "/Journal-react-app-login/index.html",
+    "static/css/main.9169da59.chunk.css.map": "/Journal-react-app-login/static/css/main.9169da59.chunk.css.map",
+    "static/js/2.f05560b1.chunk.js.LICENSE.txt": "/Journal-react-app-login/static/js/2.f05560b1.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d368b2a2.js",
+    "static/js/2.f05560b1.chunk.js",
+    "static/css/main.9169da59.chunk.css",
+    "static/js/main.44fe2a13.chunk.js"
+  ]
+}
