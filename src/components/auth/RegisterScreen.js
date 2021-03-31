@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import validator from 'validator';
 
@@ -15,9 +15,11 @@ const registerValues = {
 
 export const RegisterScreen = () => {
 
+    const { msgError } = useSelector(state => state.ui);
     const dispatch = useDispatch();
     const [formValues, handleInputChange] = useForm(registerValues)
     const { name, email, password, password2 } = formValues;
+
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -46,9 +48,16 @@ export const RegisterScreen = () => {
         <div>
             <h3 className="auth__title">Register Screen</h3>
             <form onSubmit={handleRegister}>
-                <div className="auth__alert-error">
-                    Error in form
-                </div>
+
+                {
+                    msgError &&
+                    (
+                        <div className="auth__alert-error">
+                            Error: {msgError}
+                        </div>
+                    )
+                }
+
                 <input
                     className="auth__input"
                     type="text"
