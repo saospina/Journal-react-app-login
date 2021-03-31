@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import validator from 'validator';
+
 import { useForm } from '../../hooks/useForm';
 
 const registerValues = {
@@ -16,13 +18,32 @@ export const RegisterScreen = () => {
 
     const handleRegister = (e) => {
         e.preventDefault();
-        console.log(name, email, password, password2);
+        if (isFormValid()) {
+            return console.log('Valid');
+
+        }
+    }
+
+    const isFormValid = () => {
+
+        if (name.trim().length <= 2) {
+            return false;
+        } else if (!validator.isEmail(email)) {
+            return false;
+        } else if (password !== password2 && password.length < 5) {
+            console.error('at least 6');
+            return false;
+        }
+        return true
     }
 
     return (
         <div>
             <h3 className="auth__title">Register Screen</h3>
             <form onSubmit={handleRegister}>
+                <div className="auth__alert-error">
+                    Error in form
+                </div>
                 <input
                     className="auth__input"
                     type="text"
