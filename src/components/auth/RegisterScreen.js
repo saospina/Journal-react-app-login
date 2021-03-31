@@ -5,6 +5,7 @@ import validator from 'validator';
 
 import { useForm } from '../../hooks/useForm';
 import { setErrorAction, removeErrorAction } from '../../actions/ui';
+import { startRegisterWithEmailPassName } from '../../thunks/authThunk';
 
 const registerValues = {
     name: 'sergio',
@@ -24,7 +25,7 @@ export const RegisterScreen = () => {
     const handleRegister = (e) => {
         e.preventDefault();
         if (isFormValid()) {
-            return console.log('Valid');
+            dispatch(startRegisterWithEmailPassName(email, password, name))
         }
     };
 
