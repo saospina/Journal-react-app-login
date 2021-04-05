@@ -1,4 +1,5 @@
 import { firebase } from '../firebase/firebase-config';
+import Swal from 'sweetalert2';
 
 import { login, logoutAction } from '../actions/auth';
 import { startLoadingAction, finishLoadingAction } from '../actions/ui';
@@ -13,7 +14,11 @@ export const startRegisterWithEmailPassName = (email, password, name) => {
                 console.log(user);
                 dispatch(login(user.uid, user.displayName))
             })
-            .catch(e => console.log(e))
+            .catch(e => {
+                console.error(e);
+                Swal.fire('Error!', e.message, 'error')
+
+            })
     }
 
 };
@@ -27,7 +32,8 @@ export const startLoginEmailPass = (email, password) => async (dispatch) => {
         dispatch(finishLoadingAction());
     } catch (error) {
         dispatch(finishLoadingAction());
-        console.log(error);
+        Swal.fire('Error!', error.message, 'error')
+        console.error(error);
     }
 };
 
@@ -37,6 +43,6 @@ export const startLogut = () => async (dispatch) => {
         await firebase.auth().signOut();
         dispatch(logoutAction());
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 };

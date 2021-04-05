@@ -4,12 +4,15 @@ import { firebase } from '../firebase/firebase-config';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
     Redirect
 } from "react-router-dom";
+
+
 import { AuthRouter } from './AuthRouter';
 import { JournalScreen } from '../components/journal/JournalScreen';
 import { login } from '../actions/auth';
+import { PrivateRoute } from './PrivateRoute';
+import { PublicRoute } from './PublicRoute';
 
 export const AppRouter = () => {
 
@@ -18,7 +21,7 @@ export const AppRouter = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        
+
         firebase.auth().onAuthStateChanged(user => {
 
             if (user?.uid) {
@@ -40,13 +43,15 @@ export const AppRouter = () => {
         <Router>
             <div>
                 <Switch>
-                    <Route
+                    <PublicRoute
                         path="/auth"
+                        isAuthenticated={isLoggedIn}
                         component={AuthRouter}
                     />
-                    <Route
+                    <PrivateRoute
                         exact
                         path="/"
+                        isAuthenticated={isLoggedIn}
                         component={JournalScreen}
                     />
                     <Redirect to="/auth/login" />
