@@ -1,7 +1,16 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { JournalEntries } from './JournalEntries';
+import { startLogut } from '../../thunks/authThunk';
 
 export const SideBar = () => {
+
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+        dispatch(startLogut())
+    }
+
     return (
         <aside className="journal__sidebar">
             <div className="journal__sidebar-navbar">
@@ -9,7 +18,9 @@ export const SideBar = () => {
                     <i className="far fa-moon"></i>
                     <span> Antony</span>
                 </h3>
-                <button className="btn">
+                <button
+                    className="btn"
+                    onClick={handleLogout}>
                     Logout
                 </button>
             </div>
@@ -17,7 +28,7 @@ export const SideBar = () => {
                 <i className="far fa-calendar-plus fa-5x"></i>
                 <p className="mt-5">New entry</p>
             </div>
-            <JournalEntries /> 
+            <JournalEntries />
         </aside>
     )
 }

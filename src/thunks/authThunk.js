@@ -1,12 +1,11 @@
 import { firebase } from '../firebase/firebase-config';
 
-import { login } from '../actions/auth';
+import { login, logoutAction } from '../actions/auth';
 import { startLoadingAction, finishLoadingAction } from '../actions/ui';
 
 
 export const startRegisterWithEmailPassName = (email, password, name) => {
 
-    console.log('thunk');
     return (dispatch) => {
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(async ({ user }) => {
@@ -28,6 +27,16 @@ export const startLoginEmailPass = (email, password) => async (dispatch) => {
         dispatch(finishLoadingAction());
     } catch (error) {
         dispatch(finishLoadingAction());
+        console.log(error);
+    }
+};
+
+export const startLogut = () => async (dispatch) => {
+
+    try {
+        await firebase.auth().signOut();
+        dispatch(logoutAction());
+    } catch (error) {
         console.log(error);
     }
 };

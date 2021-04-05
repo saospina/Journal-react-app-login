@@ -19,3 +19,9 @@ export const startGoogleLogin = () => {
             })
     }
 };
+
+export const logoutAction = () => ({
+    type: types.logout
+})
+
+
