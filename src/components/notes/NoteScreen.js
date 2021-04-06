@@ -2,6 +2,7 @@ import React from 'react'
 import { NotesAppBar } from './NotesAppBar';
 
 export const NoteScreen = () => {
+    
     return (
         <div className="notes__main-content">
 
@@ -14,6 +15,7 @@ export const NoteScreen = () => {
                     placeholder="An awesome title"
                     className="notes__title-input"
                     autoComplete="off"
+                    autoFocus
                 />
 
                 <textarea
@@ -26,7 +28,7 @@ export const NoteScreen = () => {
                 ></textarea>
 
                 <div className="notes__image">
-                    <img src="https://wallpaperaccess.com/full/4545965.png" alt="dragon ball z"/>
+                    <img src="https://wallpaperaccess.com/full/4545965.png" alt="dragon ball z" />
 
                 </div>
 
