@@ -1,6 +1,7 @@
 import { db } from "../firebase/firebase-config";
 
-import { activeNoteAction } from '../actions/notes';
+import { activeNoteAction, setNotesAction } from '../actions/notes';
+import { loadNotes } from '../helpers/loadNotes';
 
 
 export const startNewNote = () => async (dispatch, getState) => {
@@ -19,4 +20,9 @@ export const startNewNote = () => async (dispatch, getState) => {
     } catch (e) {
         console.error(e);
     }
-}
+};
+
+export const startLoadingNotes = (uid) => async (dispatch) => {
+    const notes = await loadNotes(uid);
+    dispatch(setNotesAction(notes))
+};
