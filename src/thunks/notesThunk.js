@@ -1,6 +1,7 @@
 import { db } from "../firebase/firebase-config";
+import Swal from "sweetalert2";
 
-import { activeNoteAction, setNotesAction } from '../actions/notes';
+import { activeNoteAction, setNotesAction, refreshNoteAction } from '../actions/notes';
 import { loadNotes } from '../helpers/loadNotes';
 
 
@@ -26,3 +27,23 @@ export const startLoadingNotes = (uid) => async (dispatch) => {
     const notes = await loadNotes(uid);
     dispatch(setNotesAction(notes))
 };
+
+export const startSaveNote = (note) => async (dispatch, getState) => {
+    try {
+        // getState() segundo argumento en un callback usando Thunk para obtener el estado
+        const { uid } = getState().auth;
+        if (!note.url) {
+            delete note.url
+        }
+        const noteToFirestore = { ...note };
+        delete noteToFirestore.id;
+        await db.doc(`${uid}/journal/notes/${note.id}`).update(noteToFirestore)
+        dispatch(refreshNoteAction(note.id, noteToFirestore));
+        Swal.fire('Saved', note.title, 'success')
+
+    } catch (e) {
+        console.error(e);
+        Swal.fire('Unsaved', 'System could not save the entry changes', 'error')
+    }
+};
+

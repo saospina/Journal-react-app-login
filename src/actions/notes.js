@@ -9,5 +9,11 @@ export const activeNoteAction = (id, note) => ({
 export const setNotesAction = (notes) => ({
     type: types.notesLoad,
     payload: notes
+});
+
+export const refreshNoteAction = (id, note) => ({
+    type: types.notesUpdated,
+    payload: { id, note: { id, ...note } }
 })
+
 
