@@ -26,6 +26,13 @@ export const notesReducer = (state = initialState, { type, payload }) => {
                     note.id === payload.id ? payload.note : note
                 ))
             }
+        case types.notesDelete:
+            return {
+                ...state,
+                active: null,
+                //regresa todas las notas, menos la seleccionada
+                notes: state.notes.filter(note => note.id !== payload)
+            }
 
         default:
             return state

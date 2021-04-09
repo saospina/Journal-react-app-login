@@ -14,6 +14,12 @@ export const setNotesAction = (notes) => ({
 export const refreshNoteAction = (id, note) => ({
     type: types.notesUpdated,
     payload: { id, note: { id, ...note } }
+});
+
+export const deleteNoteAction = (id) => ({
+    type: types.notesDelete,
+    payload: id
 })
+
 
 

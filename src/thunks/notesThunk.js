@@ -1,7 +1,12 @@
 import { db } from "../firebase/firebase-config";
 import Swal from "sweetalert2";
 
-import { activeNoteAction, setNotesAction, refreshNoteAction } from '../actions/notes';
+import {
+    activeNoteAction,
+    setNotesAction,
+    refreshNoteAction,
+    deleteNoteAction
+} from '../actions/notes';
 import { loadNotes } from '../helpers/loadNotes';
 import { fileUpload } from '../helpers/fileUpload';
 
@@ -49,11 +54,32 @@ export const startSaveNote = (note) => async (dispatch, getState) => {
 };
 
 export const startUploading = (file) => async (dispatch, getState) => {
-    try {
-        const { active: activeNote } = getState().notes;
-        const fileUrl = await fileUpload(file);
-    } catch (err) {
-        console.error(err)
+
+    const { active: activeNote } = getState().notes;
+    Swal.fire({
+        title: 'Loading...',
+        text: 'Please wait...',
+        allowOutsideClick: false,
+        willOpen: () => {
+            Swal.showLoading();
+        }
+    })
+    const fileUrl = await fileUpload(file);
+    activeNote.url = fileUrl
+    dispatch(startSaveNote(activeNote))
+    Swal.close();
+
+};
+
+export const startDeleting = (id) => {
+    return async (dispatch, getState) => {
+        const { uid } = getState().auth;
+        try {
+            await db.doc(`${uid}/journal/notes/${id}`).delete()
+            dispatch(deleteNoteAction(id))
+        } catch (err) {
+            console.error(err)
+        }
 
     }
 }

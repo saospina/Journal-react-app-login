@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NotesAppBar } from './NotesAppBar';
 import { useForm } from '../../hooks/useForm';
 import { activeNoteAction } from '../../actions/notes';
+import { startDeleting } from '../../thunks/notesThunk';
 
 export const NoteScreen = () => {
 
     const dispatch = useDispatch();
     const { active: note } = useSelector(state => state.notes);
     const [formValues, handleInputChange, reset] = useForm(note);
-    const { body, title } = formValues;
+    const { body, title, id } = formValues;
     const refActiveId = useRef(note.id)
 
     useEffect(() => {
@@ -26,6 +27,10 @@ export const NoteScreen = () => {
         dispatch(activeNoteAction(formValues.id, { ...formValues }))
 
     }, [formValues, dispatch])
+
+    const handleDelete = () => {
+        dispatch(startDeleting(id))
+    }
 
 
 
@@ -60,14 +65,20 @@ export const NoteScreen = () => {
 
                 {
                     (note.url) &&
-                    <div className="notes__image">
-                        <img src="https://wallpaperaccess.com/full/4545965.png" alt="dragon ball z" />
-
+                    <div>
+                        <img className="notes__img" src={note.url} alt="img-cloudinary" />
                     </div>}
 
 
 
             </div>
+            <button
+                className="btn btn-danger"
+                onClick={handleDelete}
+            >
+                <i className="far fa-trash-alt fa-lg mr-1"></i>
+                Delete
+                </button>
         </div>
     )
 }
