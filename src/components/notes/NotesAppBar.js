@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
-import { startSaveNote } from '../../thunks/notesThunk';
+import { startSaveNote, startUploading } from '../../thunks/notesThunk';
 
 export const NotesAppBar = () => {
     const dispatch = useDispatch();
@@ -9,14 +9,37 @@ export const NotesAppBar = () => {
 
     const handleSave = () => {
         dispatch(startSaveNote(note))
+    };
+
+    const handleUploadPic = () => {
+        document.getElementById('fileSelector').click()
+    };
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            dispatch(startUploading(file))
+        }
+        
+        
+
     }
 
     return (
         <div className="notes__appbar">
             <span>28 de agosto de 2021</span>
+            <input
+                id="fileSelector"
+                name="filePic"
+                type="file"
+                style={{ display: 'none' }}
+                onChange={handleFileChange}
+            />
             <div>
-                <button className="btn">
-                    Picture
+                <button
+                    className="btn"
+                    onClick={handleUploadPic}>
+                    Upload a picture
                 </button>
                 <button
                     className="btn"

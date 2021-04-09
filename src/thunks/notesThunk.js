@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 
 import { activeNoteAction, setNotesAction, refreshNoteAction } from '../actions/notes';
 import { loadNotes } from '../helpers/loadNotes';
+import { fileUpload } from '../helpers/fileUpload';
 
 
 export const startNewNote = () => async (dispatch, getState) => {
@@ -46,4 +47,14 @@ export const startSaveNote = (note) => async (dispatch, getState) => {
         Swal.fire('Unsaved', 'System could not save the entry changes', 'error')
     }
 };
+
+export const startUploading = (file) => async (dispatch, getState) => {
+    try {
+        const { active: activeNote } = getState().notes;
+        const fileUrl = await fileUpload(file);
+    } catch (err) {
+        console.error(err)
+
+    }
+}
 
