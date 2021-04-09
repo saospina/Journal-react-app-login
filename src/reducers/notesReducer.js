@@ -6,12 +6,18 @@ const initialState = {
 }
 
 export const notesReducer = (state = initialState, { type, payload }) => {
+
     switch (type) {
 
         case types.notesActive:
             return {
                 ...state,
                 active: { ...payload }
+            }
+        case types.notesAddNewEntry:
+            return {
+                ...state,
+                notes: [...state.notes, payload]
             }
         case types.notesLoad:
             return {
@@ -32,6 +38,12 @@ export const notesReducer = (state = initialState, { type, payload }) => {
                 active: null,
                 //regresa todas las notas, menos la seleccionada
                 notes: state.notes.filter(note => note.id !== payload)
+            }
+        case types.notesLogoutCleaning:
+            return {
+                ...state,
+                active: null,
+                notes: []
             }
 
         default:

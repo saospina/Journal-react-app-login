@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 
 import { login, logoutAction } from '../actions/auth';
 import { startLoadingAction, finishLoadingAction } from '../actions/ui';
+import { noteLogoutAction } from '../actions/notes';
 
 
 export const startRegisterWithEmailPassName = (email, password, name) => {
@@ -42,6 +43,7 @@ export const startLogut = () => async (dispatch) => {
     try {
         await firebase.auth().signOut();
         dispatch(logoutAction());
+        dispatch(noteLogoutAction())
     } catch (error) {
         console.error(error);
     }

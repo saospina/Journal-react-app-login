@@ -19,7 +19,18 @@ export const refreshNoteAction = (id, note) => ({
 export const deleteNoteAction = (id) => ({
     type: types.notesDelete,
     payload: id
+});
+
+export const noteLogoutAction = () => ({
+    type: types.notesLogoutCleaning
+});
+
+export const addNewNoteAction = (id, note) => ({
+    type: types.notesAddNewEntry,
+    payload: { id, ...note }
 })
+
+
 
 
 

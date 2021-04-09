@@ -5,7 +5,8 @@ import {
     activeNoteAction,
     setNotesAction,
     refreshNoteAction,
-    deleteNoteAction
+    deleteNoteAction,
+    addNewNoteAction
 } from '../actions/notes';
 import { loadNotes } from '../helpers/loadNotes';
 import { fileUpload } from '../helpers/fileUpload';
@@ -45,6 +46,7 @@ export const startSaveNote = (note) => async (dispatch, getState) => {
         delete noteToFirestore.id;
         await db.doc(`${uid}/journal/notes/${note.id}`).update(noteToFirestore)
         dispatch(refreshNoteAction(note.id, noteToFirestore));
+        dispatch(addNewNoteAction(note.id, noteToFirestore));
         Swal.fire('Saved', note.title, 'success')
 
     } catch (e) {
