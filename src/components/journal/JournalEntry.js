@@ -21,18 +21,17 @@ export const JournalEntry = ({ id, date, title, body, url }) => {
         >
             {
                 url &&
-                <div
+                <img
                     className="journal__entry-picture"
-                    style={{
-                        backgroundSize: 'cover',
-                        backgroundImage: `url(${url})`
-                    }}
-                ></div>
+                    alt="noImage"
+                    src={url}
+                ></img>
             }
             <div className="journal__entry-body">
                 <p className="journal__entry-title">
                     {title}
                 </p>
+                <br/>
                 <p className="journal__entry-content">
                     {body}
                 </p>
@@ -46,3 +45,16 @@ export const JournalEntry = ({ id, date, title, body, url }) => {
         </div>
     )
 }
+
+
+
+//{
+    //url &&
+    //<div
+        //className="journal__entry-picture"
+        //style={{
+            ///* backgroundSize: 'cover', */
+            //backgroundImage: `url(${url})`
+        //}}
+    //></div>
+//}
