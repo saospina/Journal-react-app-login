@@ -13,7 +13,7 @@ export const fileUpload = async (file) => {
             let result = await response.json();
             return result.secure_url;
         } else {
-            throw await response.json();
+            return null;
         }
     } catch (err) {
         console.error(err);
